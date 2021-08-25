@@ -36,22 +36,26 @@ it("works when you click on the right arrow", function () {
 
 it("works when you click on the left arrow", function () {
   const { queryByTestId, queryByAltText } = render(<Carousel />);
-
-  // expect the first image to show, but not the second
+  // move to second image
+  const rightArrow = queryByTestId("right-arrow");
+  fireEvent.click(rightArrow);
+  // expect the second image to show, but not the first
   expect(
     queryByAltText("Photo by Richard Pasquarella on Unsplash")
-  ).toBeInTheDocument();
+  ).not.toBeInTheDocument();
   expect(
     queryByAltText("Photo by Pratik Patel on Unsplash")
-  ).not.toBeInTheDocument();
+  ).toBeInTheDocument();
 
   // move backward in the carousel
   const leftArrow = queryByTestId("left-arrow");
   fireEvent.click(leftArrow);
 
-  // expect the previous image to show, but not the first
+  // expect the previous image to show, but not the second
+  expect(
+    queryByAltText("Photo by Pratik Patel on Unsplash")
+  ).not.toBeInTheDocument();
   expect(
     queryByAltText("Photo by Richard Pasquarella on Unsplash")
-  ).not.toBeInTheDocument();
-  expect(queryByAltText("Photo by Josh Post on Unsplash")).toBeInTheDocument();
+  ).toBeInTheDocument();
 });
