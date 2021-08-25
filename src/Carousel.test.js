@@ -59,3 +59,22 @@ it("works when you click on the left arrow", function () {
     queryByAltText("Photo by Richard Pasquarella on Unsplash")
   ).toBeInTheDocument();
 });
+it("hides left arrow if first image and hides right arrow if last image", function () {
+  const { getByTestId } = render(<Carousel />);
+  const leftArrow = getByTestId("left-arrow");
+  const rightArrow = getByTestId("right-arrow");
+  // when first loads
+  expect(leftArrow).toHaveClass("hidden");
+  expect(rightArrow).not.toHaveClass("hidden");
+  // move forward
+  fireEvent.click(rightArrow);
+  // both should be there
+  expect(leftArrow).not.toHaveClass("hidden");
+  expect(rightArrow).not.toHaveClass("hidden");
+  // move forward again
+  fireEvent.click(rightArrow);
+
+  // right arrow should be gone because no more images
+  expect(rightArrow).toHaveClass("hidden");
+  expect(leftArrow).not.toHaveClass("hidden");
+});
