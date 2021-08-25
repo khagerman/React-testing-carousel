@@ -13,3 +13,6 @@
 .Carousel-main > i:hover {
   color: black;
 }
+.hidden {
+  display: none;
+}
