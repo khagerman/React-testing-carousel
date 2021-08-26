@@ -7,17 +7,22 @@ import Card from "./Card";
 
 function Carousel(props) {
   const [cardIdx, setCardIdx] = useState(0);
+
   const card = props.cardData[cardIdx];
   const total = props.cardData.length;
   const goForward = () => setCardIdx(cardIdx + 1);
   const goBack = () => setCardIdx(cardIdx - 1);
-  // should this be props?
+
   return (
     <div className="Carousel">
       <h1>{props.title}</h1>
       <div className="Carousel-main">
         <i
-          className="fas fa-chevron-circle-left fa-2x"
+          className={
+            cardIdx === 0
+              ? "fas fa-chevron-circle-left fa-2x hidden"
+              : "fas fa-chevron-circle-left fa-2x"
+          }
           onClick={goBack}
           data-testid="left-arrow"
         />
@@ -28,7 +33,11 @@ function Carousel(props) {
           totalNum={total}
         />
         <i
-          className="fas fa-chevron-circle-right fa-2x"
+          className={
+            cardIdx === 2
+              ? "fas fa-chevron-circle-right fa-2x hidden"
+              : "fas fa-chevron-circle-right fa-2x"
+          }
           onClick={goForward}
           data-testid="right-arrow"
         />
@@ -56,3 +65,6 @@ Carousel.defaultProps = {
 };
 
 export default Carousel;
+
+// add class if index = 0 or 3
+// remove class else
